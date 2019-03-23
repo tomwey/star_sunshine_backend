@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="jumbotron" style="margin-top: 20px;">
+    <h1>抽奖签到成功！</h1>
+      <p class="lead">
+        <span style="color:red;"><%= current_user.auth_profile.try(:nickname) %></span>,
+        恭喜你获得了一次【<%= @ld.title %>】活动现场抽奖机会。
+      </p>
+      <p>奖品是：<span style="color:red;"><%= @prize.name %></span></p>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="cj-box">
+    <h2><%= @ld.title %>现场抽奖，赢取<span style="color:red;"><%= @prize.name %></span></h2>
+    <% if @prize.started_at.blank? %>
+    <div class="cj-users">
+      <div class="subtitle clearfix" id="cj-operation">
+        <p class="pull-left">抽奖人员如下</p>
+        <p class="pull-right">
+          <span id="countdown" style="padding-right: 10px;"></span>
+          <button type="button" class="btn btn-lg btn-primary" id="cj-button">开始抽奖</button>
+        </p>
+      </div>
+      <div class="row">
+        <% @users.each_with_index do |user,index| %>
+        <div class="col-md-2 col-sm-3 col-xs-4 img-box">
+          <div id="uicon-<%= index %>">
+            <img src="<%= user.auth_profile.headimgurl %>" data-index="<%= index %>" class="uicon">
+            <p><%= user.auth_profile.nickname %></p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+    <div class="cj-users">
+      <p style="text-align: center; font-size: 18px; color: #666; margin-top: 30px; margin-bottom: 30px;">恭喜以下人员，获得【<%= @prize.name %>】</p>
+      <div class="row">
+        <% @users.each_with_index do |user,index| %>
+        <div class="col-md-2 col-sm-3 col-xs-4 img-box">
+          <div id="uicon-<%= index %>">
+            <img src="<%= user.auth_profile.headimgurl %>">
+            <p><%= user.auth_profile.nickname %></p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    
+  </div>
+</div>
+
+<% content_for :scripts do %>
+<script>
+  var shakeTimer;
+  var currentIndex = -1;
+  
+  $('#cj-button').click(function() {
+    var val = $('#cj-button').data('starting');
+    if (val == '1') {
+      $('#cj-button').data('starting', '0');
+      $('#cj-button').text('开始抽奖');
+      
+      if (shakeTimer) {
+        clearInterval(shakeTimer);
+      }
+      
+      $('#countdown').text('');
+      
+      if (currentIndex != -1) {
+        $('#uicon-' + currentIndex).fadeIn(100);
+      }
+      
+      // 开始抽奖
+      $.ajax({
+        url: '/wx/cj/start',
+        type: 'POST',
+        data: { id: '<%= @ld.uniq_id %>' },
+        success: function(data) {
+          if (data == '1') {
+            window.location.href = '/wx/cj/portal' + '?cjak=<%= SiteConfig.cj_ak %>';
+          } else {
+            App.alert(data, '#cj-operation');
+          }
+        },
+        error: function(error) {
+          App.alert('服务器出错了，请重试', '#cj-operation');
+        }
+        
+      });
+    } else {
+      $('#cj-button').data('starting', '1');
+      $('#cj-button').text('停止抽奖');
+      
+      var times = new Date().getTime();
+      
+      // 开启抽奖动画
+      clearInterval(shakeTimer);
+      
+      shakeTimer = setInterval(function() {
+        if (currentIndex != -1) {
+          $('#uicon-' + currentIndex).fadeIn(100);
+        }
+        
+        var size = parseInt('<%= @users.size %>');
+        var index = Math.round(Math.random() * size );
+        if (index != currentIndex) {
+          currentIndex = index;
+          $('#uicon-' + index).fadeOut(100);
+        }
+        
+        var dt = new Date().getTime() - times;
+        dt = Math.round(dt / 1000.0);
+        if (dt < 60) {
+          $('#countdown').text('计时: ' + dt + '秒');
+        } else {
+          var min = Math.round(dt / 60);
+          var sec = dt % 60;
+          $('#countdown').text('计时: ' + min + '分' + sec + '秒');
+        }
+        
+      }, 100);
+    }
+  });
+</script>
+<% end %>
