@@ -52,7 +52,7 @@ form do |f|
     f.input :hip_size, as: :number
     f.input :vision, as: :number
     f.input :hair_style, as: :radio, collection: ['长发','短发']
-    f.input :hair_color
+    f.input :hair_color, as: :string
     f.input :footcode, as: :number
     # f.input :school, placeholder: '输入学校专业等'
     f.input :skills, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
