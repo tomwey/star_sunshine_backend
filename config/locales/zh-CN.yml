@@ -237,11 +237,33 @@
         _type: '艺人类型'
         private_token: 'TOKEN'
         verified: '账号是否可用'
-        school: '学校'
-        bio: '个人简介'
-        birth: '生日'
+        # school: '学校'
+        # bio: '个人简介'
+        # birth: '生日'
         height: '身高'
         weight: '体重'
+        photos: '照片'
+        sex: "性别"
+        age: "年龄"
+        nation: "籍贯"     # 籍贯
+        edu_level: "学历"  # 学历
+        speciality: "专业" # 专业
+        is_marry: "婚否"  # 婚否
+        now_job: "现职业"    # 现职业
+        interest: "爱好"   # 爱好
+        source: "信息来源"     # 信息来源
+        body_size: "体型"  # 体型
+        chest_size: "胸围" # 胸围
+        waist_size: "腰围" # 腰围
+        hip_size: "臀围"   # 臀围
+        vision: "视力"     # 视力
+        hair_style: "发型" # 发型（长发、短发）
+        hair_color: "头发颜色" # 头发颜色
+        footcode: "鞋码"   # 鞋码
+        skills: "个人才艺"       # 个人才艺
+        trainings: "艺术培训经历"    # 艺术培训
+        bio: "工作/演出经历"          # 简介、工作经历、演出经历等等
+        follows_count: "粉丝数"
       catalog:
         name: '名称'
         sort: '显示顺序'
@@ -256,37 +278,7 @@
         owner_id: '所属艺人'
         opened: '是否上线'
         sort: '显示顺序'
-      vote:
-        uniq_id: 'ID'
-        title: '标题'
-        body: '内容'
-        body_url: '内容地址'
-        expired_at: '截止时间'
-        opened: '是否启用'
-        _type: '投票类型'
-        vote_count: '总投票数'
-        sort: '显示顺序'
-        video: '投票简介视频'
-        view_count: '阅读量'
-      vote_item:
-        vote_id: '所属投票'
-        performer_id: '候选艺人'
-        vote_count: '得票数'
-        sort: '显示顺序'
-        video: '投票视频介绍'
-        opened: '是否启用该选项'
-        body: '投票文本介绍'
-      lucky_draw:
-        title: '主题'
-        body: '简介'
-        opened: '是否开启'
-        uniq_id: 'ID'
-      lucky_draw_item:
-        name: '奖项名称'
-        quantity: '抽取数量'
-        prize: '奖品简介'
-        opened: '是否开启'
-        sort: '显示顺序'
+      
     errors:
       models:
         user: "用户"
