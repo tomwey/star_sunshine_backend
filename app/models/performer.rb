@@ -1,8 +1,9 @@
 class Performer < ActiveRecord::Base
-  validates :mobile, :name, :avatar, presence: true
+  validates :name, :photos, :_type, presence: true
   validates_uniqueness_of :mobile
   
   mount_uploader :avatar, AvatarUploader
+  mount_uploaders :photos, ImagesUploader
   
   before_create :generate_uniq_id_and_token
   def generate_uniq_id_and_token
@@ -13,7 +14,7 @@ class Performer < ActiveRecord::Base
       end
       self.uniq_id = (n.to_s + SecureRandom.random_number.to_s[2..6]).to_i
     end while self.class.exists?(:uniq_id => uniq_id)
-    self.private_token = SecureRandom.uuid.gsub('-', '')
+    # self.private_token = SecureRandom.uuid.gsub('-', '')
   end
   
   def comm_id
