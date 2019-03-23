@@ -2,9 +2,9 @@ ActiveAdmin.register Performer do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight, :photos,
+permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight,
 :sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,
-:waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings
+:waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }
 #
 # or
 #
