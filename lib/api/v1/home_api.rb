@@ -40,15 +40,47 @@ module API
         end # end get /
       end # end resource
       
+      resource :tags, desc: "分类相关接口" do
+        desc "获取分类"
+        get do
+          @tags = Tag.order('id asc')
+          render_json(@tags, API::V1::Entities::Tag)
+        end # end get tags
+      end # end resource
+      
+      resource :jobs, desc: "活动通告相关接口" do
+        desc "获取所有通告"
+        params do
+          optional :token, type: String, desc: '用户TOKEN'
+          # optional :tag_id, type: Integer, desc: '分类ID'
+          use :pagination
+        end
+        get do
+          @jobs = Job.where(opened: true, deleted_at: nil).order('id desc')
+          if params[:page]
+            @jobs = @jobs.paginate page: params[:page], per_page: page_size
+            total = @jobs.total_entries
+          else
+            total = @jobs.size
+          end
+          
+          render_json(@jobs, API::V1::Entities::Job, {}, total)
+        end # end jobs 
+      end # end resource
+      
       resource :performs, desc: '艺人相关接口' do
         desc "获取艺人库"
         params do
           optional :token, type: String, desc: '用户TOKEN'
-          optional :school, type: String, desc: '艺人学校'
+          optional :tag_id, type: Integer, desc: '分类ID'
           use :pagination
         end
         get do
           @performers = Performer.where(verified: true).order('id desc')
+          if params[:tag_id].present?
+            @performers = @performers.where('? = ANY(tags)', params[:tag_id])
+          end
+          
           if params[:page]
             @performers = @performers.paginate page: params[:page], per_page: page_size
             total = @performers.total_entries
