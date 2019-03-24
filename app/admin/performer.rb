@@ -4,7 +4,7 @@ ActiveAdmin.register Performer do
 #
 permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight,
 :sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,
-:waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }
+:waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
 #
 # or
 #
@@ -34,6 +34,7 @@ form html: { multipart: true } do |f|
     f.input :name
     f.input :avatar
     f.input :photos, as: :file, hint: "图片尺寸为1080x668", input_html: { multiple: true }
+    f.input :tags, label: '所属分类', as: :check_boxes, collection: Tag.all.map { |tag| [tag.name, tag.id] }
     f.input :sex, as: :radio, collection: ['男', '女']
     f.input :age
     f.input :nation

@@ -17,6 +17,11 @@ class Performer < ActiveRecord::Base
     # self.private_token = SecureRandom.uuid.gsub('-', '')
   end
   
+  before_save :remove_blank_value_for_array
+  def remove_blank_value_for_array
+    self.tags = self.tags.compact.reject(&:blank?)
+  end
+  
   def comm_id
     self.uniq_id
   end
