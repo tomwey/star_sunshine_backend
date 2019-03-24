@@ -5,6 +5,7 @@ module API
         format_with(:null) { |v| v.blank? ? "" : v }
         format_with(:chinese_date) { |v| v.blank? ? "" : v.strftime('%Y-%m-%d') }
         format_with(:chinese_datetime) { |v| v.blank? ? "" : v.strftime('%Y-%m-%d %H:%M:%S') }
+        format_with(:chinese_datetime2) { |v| v.blank? ? "" : v.strftime('%Y-%m-%d %H:%M') }
         format_with(:month_date_time) { |v| v.blank? ? "" : v.strftime('%m月%d日 %H:%M') }
         format_with(:money_format) { |v| v.blank? ? 0.00 : ('%.2f' % v) }
         format_with(:rmb_format) { |v| v.blank? ? 0.00 : ('%.2f' % (v / 100.00)) }
@@ -301,7 +302,9 @@ module API
       
       class Job < Base
         expose :uniq_id, as: :id
-        expose :name, :price, :address, :company, :begin_time, :end_time, :body
+        expose :name, :price, :address, :company, :body
+        expose :begin_time, format_with: :chinese_datetime2
+        expose :end_time, format_with: :chinese_datetime2
       end
       
       class VoteItem < Base
