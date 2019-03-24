@@ -285,7 +285,7 @@ module API
           end
           temp
         end
-        expose :tags do |model,opts|
+        expose :tag_names do |model,opts|
           Tag.where(id: model.tags).pluck(:name)
         end
         expose :follows_count, :sex, :age, :nation, :edu_level, :speciality, :is_marry, :now_job, :interest
