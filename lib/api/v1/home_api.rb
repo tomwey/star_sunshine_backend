@@ -44,7 +44,7 @@ module API
         desc "获取分类"
         get do
           @tags = Tag.order('id asc')
-          render_json(@tags, API::V1::Entities::Tag)
+          render_json(@tags, API::V1::Entities::TagName)
         end # end get tags
       end # end resource
       
