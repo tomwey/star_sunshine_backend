@@ -300,6 +300,10 @@ module API
         end
       end
       
+      class Tag < Base
+        expose :name
+      end
+      
       class Job < Base
         expose :uniq_id, as: :id
         expose :name, :price, :address, :company, :body
