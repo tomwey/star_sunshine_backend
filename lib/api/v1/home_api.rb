@@ -15,7 +15,7 @@ module API
           @banners = Banner.opened.sorted.limit(5)
           
           # 获取正在进行的投票
-          @vote = Vote.where(opened: true).first
+          # @vote = Vote.where(opened: true).first
           
           # # 获取功能模块
           # @sections = [
@@ -49,7 +49,7 @@ module API
           @user = User.find_by(private_token: params[:token])
           result = {
             banners: API::V1::Entities::Banner.represent(@banners),
-            vote: API::V1::Entities::Vote.represent(@vote, { user: @user }),
+            # vote: API::V1::Entities::Vote.represent(@vote, { user: @user }),
             featured: @sections,
             # sections: @modules,
             performers: API::V1::Entities::Performer.represent(@performers, opts: { user: @user })
