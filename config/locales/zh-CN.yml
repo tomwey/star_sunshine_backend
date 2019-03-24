@@ -236,6 +236,7 @@
         # school: '学校'
         # bio: '个人简介'
         # birth: '生日'
+        address: '常住地'
         height: '身高'
         weight: '体重'
         photos: '照片'
