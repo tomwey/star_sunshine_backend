@@ -276,6 +276,7 @@ module API
         expose :_type, as: :type
         # expose :comm_type, as: :type
         # expose :school
+        expose :address
         expose :photos do |model, opts|
           temp = []
           model.photos.each do |photo|
