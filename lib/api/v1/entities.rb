@@ -273,9 +273,18 @@ module API
         expose :avatar do |model, opts|
           model.avatar.url(:large)
         end
-        expose :comm_type, as: :type
-        expose :school
-        expose :follows_count
+        expose :_type, as: :type
+        # expose :comm_type, as: :type
+        # expose :school
+        expose :photos do |model, opts|
+          temp = []
+          model.photos.each do |photo|
+            temp << photo.url(:large)
+          end
+          temp
+        end
+        expose :follows_count, :sex, :age, :nation, :edu_level, :speciality, :is_marry, :now_job, :interest
+        expose :source, :height, :weight, :body_size, :chest_size, :waist_size, :hip_size, :vision, :hair_style, :hair_color, :footcode, :skills, :trainings, :bio
         expose :followed do |model, opts|
           if opts and opts[:opts] and opts[:opts][:user]
             user = opts[:opts][:user]
