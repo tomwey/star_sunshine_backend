@@ -283,6 +283,9 @@ module API
           end
           temp
         end
+        expose :tags do |model,opts|
+          Tag.where(id: model.tags).pluck(:name)
+        end
         expose :follows_count, :sex, :age, :nation, :edu_level, :speciality, :is_marry, :now_job, :interest
         expose :source, :height, :weight, :body_size, :chest_size, :waist_size, :hip_size, :vision, :hair_style, :hair_color, :footcode, :skills, :trainings, :bio
         expose :followed do |model, opts|
@@ -293,6 +296,11 @@ module API
             false
           end
         end
+      end
+      
+      class Job < Base
+        expose :uniq_id, as: :id
+        expose :name, :price, :address, :company, :begin_time, :end_time, :body
       end
       
       class VoteItem < Base

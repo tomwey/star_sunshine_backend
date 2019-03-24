@@ -14,35 +14,15 @@ module API
           # 获取首页Banner
           @banners = Banner.opened.sorted.limit(5)
           
-          # 获取正在进行的投票
-          # @vote = Vote.where(opened: true).first
-          
-          # # 获取功能模块
-          # @sections = [
+          # @media = Media.where(opened: true).order('sort desc').limit(3)
+          # @modules = [
           #   {
-          #     id: 1001,
-          #     title: '艺人库',
-          #     subtitle: '305位合作艺人'
-          #   },
-          #   {
-          #     id: 1002,
-          #     title: '梦想基金',
-          #     subtitle: '已筹得20,000元'
-          #   },
-          #   {
-          #     id: 1003,
-          #     title: '吉他课堂',
-          #     subtitle: '不断提升自己'
+          #     name: '校园MV',
+          #     list: API::V1::Entities::Media.represent(@media)
           #   }
           # ]
-          # MV区块
-          @media = Media.where(opened: true).order('sort desc').limit(3)
-          @modules = [
-            {
-              name: '校园MV',
-              list: API::V1::Entities::Media.represent(@media)
-            }
-          ]
+          
+          @jobs = Job.where(opened: true, deleted_at: nil).order('id desc').limit(5)
           
           @performers = Performer.where(verified: true).limit(4)
           
@@ -50,9 +30,10 @@ module API
           result = {
             banners: API::V1::Entities::Banner.represent(@banners),
             # vote: API::V1::Entities::Vote.represent(@vote, { user: @user }),
-            featured: @sections,
+            # featured: @sections,
             # sections: @modules,
-            performers: API::V1::Entities::Performer.represent(@performers, opts: { user: @user })
+            performers: API::V1::Entities::Performer.represent(@performers, opts: { user: @user }),
+            latest_jobs: API::V1::Entities::Job.represent(@jobs)
           }
           
           { code: 0, message: 'ok', data: result }
