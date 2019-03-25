@@ -487,6 +487,9 @@ module API
       class Follow < Base
         expose :user, using: API::V1::Entities::User
         expose :followable, as: :target, using: API::V1::Entities::Ownerable
+        expose :performer, using: API::V1::Entities::Performer, if: proc { |o| o.followable_type == 'Performer' } do |model,opts|
+          model.followable
+        end
         expose :created_at, as: :time, format_with: :chinese_datetime
       end
       
