@@ -9,7 +9,7 @@ class Ability
     elsif user.admin?
       can :manage, :all
       cannot :manage, SiteConfig
-      cannot :destroy, :all
+      # cannot :destroy, :all
       can :update, AdminUser do |admin|
         admin.id == user.id
       end
