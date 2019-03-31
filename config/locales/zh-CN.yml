@@ -48,6 +48,7 @@
       media: '作品'
       job: '活动通告'
       tag: '分类'
+      appointment: '通告报名'
     attributes:
       user:
         uid: 'ID'
@@ -77,6 +78,12 @@
         language: '语言'
         country: '国家'
         province: '省份'
+      appointment:
+        name: '姓名'
+        phone: '联系方式'
+        job_id: '所属通告'
+        user_id: '所属用户'
+        address: '住址'
       tag:
         name: '名字'
       message:
