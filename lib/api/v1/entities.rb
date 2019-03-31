@@ -270,7 +270,9 @@ module API
             
       class Performer < Base
         expose :uniq_id, as: :id
-        expose :name
+        expose :name do |model,opts|
+          model.nickname.blank? ? model.name : model.nickname
+        end
         expose :avatar do |model, opts|
           model.avatar.url(:large)
         end

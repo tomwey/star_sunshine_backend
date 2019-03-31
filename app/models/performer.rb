@@ -1,5 +1,5 @@
 class Performer < ActiveRecord::Base
-  validates :name, :photos, :_type, presence: true
+  validates :name, :_type, presence: true
   # validates_uniqueness_of :mobile
   
   mount_uploader :avatar, AvatarUploader

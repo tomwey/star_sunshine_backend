@@ -230,6 +230,8 @@
         mobile: '手机'
         avatar: '头像'
         uniq_id: 'ID'
+        phone: '联系方式'
+        nickname: '艺名'
         _type: '艺人类型'
         private_token: 'TOKEN'
         verified: '账号是否可用'

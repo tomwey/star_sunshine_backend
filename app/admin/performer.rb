@@ -2,7 +2,7 @@ ActiveAdmin.register Performer do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight,
+permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight, :phone, :nickname,
 :sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,:address,
 :waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
 #
@@ -35,6 +35,8 @@ form html: { multipart: true } do |f|
     f.input :avatar
     f.input :photos, as: :file, hint: "图片尺寸为1080x668", input_html: { multiple: true }
     f.input :tags, label: '所属分类', as: :check_boxes, collection: Tag.all.map { |tag| [tag.name, tag.id] }
+    f.input :phone, placeholder: '输入联系方式'
+    f.input :nickname, placeholder: '输入艺名'
     f.input :sex, as: :radio, collection: ['男', '女']
     f.input :age
     f.input :nation
