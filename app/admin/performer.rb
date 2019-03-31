@@ -31,14 +31,14 @@ form html: { multipart: true } do |f|
   f.semantic_errors
   f.inputs '基本信息' do
     f.input :_type, as: :select, collection: [['自由艺人', 1], ['签约艺人', 2]]
-    f.input :name
+    f.input :name, placeholder: '输入真实名字'
     f.input :avatar
     f.input :photos, as: :file, hint: "图片尺寸为1080x668", input_html: { multiple: true }
     f.input :tags, label: '所属分类', as: :check_boxes, collection: Tag.all.map { |tag| [tag.name, tag.id] }
-    f.input :phone, placeholder: '输入联系方式'
+    f.input :phone, placeholder: '输入联系方式，手机或座机'
     f.input :nickname, placeholder: '输入艺名'
     f.input :sex, as: :radio, collection: ['男', '女']
-    f.input :age
+    f.input :age, placeholder: '输入年龄，单位(岁)'
     f.input :nation
     f.input :edu_level, as: :select, collection: ['本科','大专','中专','硕士','博士','其它']
     f.input :speciality
