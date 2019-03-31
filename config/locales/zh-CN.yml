@@ -83,6 +83,8 @@
         phone: '联系方式'
         job_id: '所属通告'
         user_id: '所属用户'
+        job: '通告'
+        user: '用户'
         address: '住址'
       tag:
         name: '名字'
