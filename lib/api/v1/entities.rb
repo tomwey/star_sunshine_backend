@@ -309,8 +309,8 @@ module API
       class Job < Base
         expose :uniq_id, as: :id
         expose :name, :price, :address, :company, :body
-        expose :begin_time, format_with: :chinese_datetime2
-        expose :end_time, format_with: :chinese_datetime2
+        expose :begin_time, format_with: :chinese_date
+        expose :end_time, format_with: :chinese_date
       end
       
       class VoteItem < Base
