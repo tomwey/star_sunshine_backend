@@ -274,7 +274,7 @@ module API
           model.nickname.blank? ? model.name : model.nickname
         end
         expose :avatar do |model, opts|
-          model.avatar.url(:large)
+          model.avatar.blank? ? '' : model.avatar.url(:large)
         end
         expose :_type, as: :type
         # expose :comm_type, as: :type
