@@ -311,6 +311,9 @@ module API
         expose :name, :price, :address, :company, :body
         expose :begin_time, format_with: :chinese_date
         expose :end_time, format_with: :chinese_date
+        expose :has_apply do |model, opts|
+          model.has_apply_for(opts)
+        end
       end
       
       class VoteItem < Base

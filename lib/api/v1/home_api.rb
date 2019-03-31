@@ -64,8 +64,34 @@ module API
             total = @jobs.size
           end
           
-          render_json(@jobs, API::V1::Entities::Job, {}, total)
+          render_json(@jobs, API::V1::Entities::Job, {user: User.find_by(private_token: params[:token])}, total)
         end # end jobs 
+        desc "通告报名"
+        params do
+          requires :token, type: String, desc: '用户TOKEN'
+          requires :name, type: String
+          requires :phone, type: String
+          optional :address, type: String
+        end
+        post '/:id/apply' do
+          user = authenticate!
+          @job = Job.where(uniq_id: params[:id], deleted_at: nil).first
+          if @job.blank?
+            return render_error(4004, '通告不存在')
+          end
+          
+          unless @job.opened
+            return render_error(4000, '通告未上线，不能报名')
+          end
+          
+          if Appointment.where(user_id: user.id, job_id: @job.id).count > 0
+            return render_error(4000, '该通告您已经报名过了')
+          end
+          
+          Appointment.create!(user_id: user.id, job_id: @job.id, name: params[:name], phone: params[:phone], address: params[:address])
+          render_json_no_data
+          
+        end # end post
       end # end resource
       
       resource :performs, desc: '艺人相关接口' do
