@@ -272,6 +272,7 @@
         trainings: "艺术培训经历"    # 艺术培训
         bio: "工作/演出经历"          # 简介、工作经历、演出经历等等
         follows_count: "粉丝数"
+        sort: '显示顺序'
       catalog:
         name: '名称'
         sort: '显示顺序'

@@ -102,7 +102,7 @@ module API
           use :pagination
         end
         get do
-          @performers = Performer.where(verified: true).order('id desc')
+          @performers = Performer.where(verified: true).order('sort desc, id desc')
           if params[:tag_id].present?
             @performers = @performers.where('? = ANY(tags)', params[:tag_id])
           end

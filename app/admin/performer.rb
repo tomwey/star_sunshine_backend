@@ -3,7 +3,7 @@ ActiveAdmin.register Performer do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight, :phone, :nickname,
-:sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,:address,
+:sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,:address, :sort,
 :waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
 #
 # or
@@ -61,6 +61,7 @@ form html: { multipart: true } do |f|
     f.input :skills, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
     f.input :trainings, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
     f.input :bio, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
+    f.input :sort, hint: '值越大，在APP中显示越靠前'
   end
   
   # f.inputs '选填信息' do
