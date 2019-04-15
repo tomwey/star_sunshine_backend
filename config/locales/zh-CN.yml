@@ -18,6 +18,9 @@
       type_1: '自由艺人'
       type_2: '签约艺人'
       type_3: '推广艺人'
+      m_type_0: '未婚'
+      m_type_1: '已婚'
+      m_type_2: '离异'
     # SignRule:
     #   title: '口令红包'
     #   grab_tip: '注意：只有一次答题的机会！'

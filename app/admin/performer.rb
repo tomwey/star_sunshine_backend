@@ -3,7 +3,7 @@ ActiveAdmin.register Performer do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight, :phone, :nickname,
-:sex,:age,:nation,:edu_level,:speciality,:is_marry,:now_job,:interest,:source,:body_size,:chest_size,:address, :sort,
+:sex,:age,:nation,:edu_level,:speciality,:marry_type,:now_job,:interest,:source,:body_size,:chest_size,:address, :sort,
 :waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
 #
 # or
@@ -42,7 +42,8 @@ form html: { multipart: true } do |f|
     f.input :nation
     f.input :edu_level, as: :select, collection: ['本科','大专','中专','硕士','博士','其它']
     f.input :speciality
-    f.input :is_marry
+    # f.input :is_marry
+    f.input :marry_type, as: :radio, collection: ['未婚', 0], ['已婚', 1], ['离异', 2]
     f.input :now_job
     f.input :interest
     # f.input :mobile

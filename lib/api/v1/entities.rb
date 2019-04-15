@@ -292,6 +292,7 @@ module API
           Tag.where(id: model.tags).pluck(:name)
         end
         expose :follows_count, :sex, :age, :nation, :edu_level, :speciality, :is_marry, :now_job, :interest
+        expose :marry_type_name, as: :marry_type
         expose :source, :height, :weight, :body_size, :chest_size, :waist_size, :hip_size, :vision, :hair_style, :hair_color, :footcode, :skills, :trainings, :bio
         expose :followed do |model, opts|
           if opts and opts[:opts] and opts[:opts][:user]

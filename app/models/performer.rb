@@ -38,6 +38,10 @@ class Performer < ActiveRecord::Base
     I18n.t("common.performer.type_#{self._type}")
   end
   
+  def marry_type_name
+    I18n.t("common.performer.m_type_#{self.marry_type}")
+  end
+  
   def format_avatar_url
     if self.avatar.blank?
       ''
