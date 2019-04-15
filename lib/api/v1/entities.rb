@@ -277,6 +277,7 @@ module API
           model.avatar.blank? ? '' : model.avatar.url(:large)
         end
         expose :_type, as: :type
+        expose :type_name
         # expose :comm_type, as: :type
         # expose :school
         expose :address

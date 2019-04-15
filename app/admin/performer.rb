@@ -30,7 +30,7 @@ end
 form html: { multipart: true } do |f|
   f.semantic_errors
   f.inputs '基本信息' do
-    f.input :_type, as: :select, collection: [['自由艺人', 1], ['签约艺人', 2]]
+    f.input :_type, as: :select, collection: [['自由艺人', 1], ['签约艺人', 2], ['推广艺人', 3]]
     f.input :name, placeholder: '输入真实名字'
     f.input :avatar
     f.input :photos, as: :file, hint: "图片尺寸为1080x668", input_html: { multiple: true }

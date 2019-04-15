@@ -34,6 +34,10 @@ class Performer < ActiveRecord::Base
     'performer'
   end
   
+  def type_name
+    I18n.t("comm.performer.type_#{self._type}")
+  end
+  
   def format_avatar_url
     if self.avatar.blank?
       ''

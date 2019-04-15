@@ -97,12 +97,20 @@ module API
       resource :performs, desc: '艺人相关接口' do
         desc "获取艺人库"
         params do
-          optional :token, type: String, desc: '用户TOKEN'
+          optional :token,  type: String, desc: '用户TOKEN'
           optional :tag_id, type: Integer, desc: '分类ID'
+          optional :type,   type: Integer, desc: "艺人类别"
           use :pagination
         end
         get do
           @performers = Performer.where(verified: true).order('sort desc, id desc')
+          if params[:type].present?
+            unless [1 2 3].include?(params[:type])
+              return render_error(-1, "不正确的type参数")
+            end
+            @performers = @performers.where(_type: params[:type])
+          end
+          
           if params[:tag_id].present?
             @performers = @performers.where('? = ANY(tags)', params[:tag_id])
           end

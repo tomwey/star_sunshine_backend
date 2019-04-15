@@ -6,7 +6,7 @@ class CreatePerformers < ActiveRecord::Migration
       t.string :avatar                                        # 头像
       t.string :photos, null: false, array: true, default: [] # 照片
       # t.string :mobile
-      t.integer :_type, default: 1 # 艺人类型: 1 表示自由艺人, 2 表示签约艺人
+      t.integer :_type, default: 1 # 艺人类型: 1 表示自由艺人, 2 表示签约艺人 3 表示推广艺人
       t.string :sex        # 性别
       t.integer :age       # 年龄
       t.string :nation     # 籍贯

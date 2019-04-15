@@ -14,6 +14,10 @@
     grab_tip: '无'
     open: '打开'
     close: '关闭'
+    performer:
+      type_1: '自由艺人'
+      type_2: '签约艺人'
+      type_3: '推广艺人'
     # SignRule:
     #   title: '口令红包'
     #   grab_tip: '注意：只有一次答题的机会！'
