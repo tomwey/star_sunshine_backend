@@ -250,6 +250,7 @@
         nickname: '艺名'
         _type: '艺人类型'
         private_token: 'TOKEN'
+        marry_type: "婚姻状况"
         verified: '账号是否可用'
         # school: '学校'
         # bio: '个人简介'
