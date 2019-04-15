@@ -43,7 +43,7 @@ form html: { multipart: true } do |f|
     f.input :edu_level, as: :select, collection: ['本科','大专','中专','硕士','博士','其它']
     f.input :speciality
     # f.input :is_marry
-    f.input :marry_type, as: :radio, collection: ['未婚', 0], ['已婚', 1], ['离异', 2]
+    f.input :marry_type, as: :radio, collection: [['未婚', 0], ['已婚', 1], ['离异', 2]]
     f.input :now_job
     f.input :interest
     # f.input :mobile
