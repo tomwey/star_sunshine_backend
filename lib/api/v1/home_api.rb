@@ -105,7 +105,7 @@ module API
         get do
           @performers = Performer.where(verified: true).order('sort desc, id desc')
           if params[:type].present?
-            unless [1 2 3].include?(params[:type])
+            unless [1,2,3].include?(params[:type])
               return render_error(-1, "不正确的type参数")
             end
             @performers = @performers.where(_type: params[:type])
