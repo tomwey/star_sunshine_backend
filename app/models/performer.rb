@@ -35,7 +35,7 @@ class Performer < ActiveRecord::Base
   end
   
   def type_name
-    I18n.t("comm.performer.type_#{self._type}")
+    I18n.t("common.performer.type_#{self._type}")
   end
   
   def format_avatar_url
