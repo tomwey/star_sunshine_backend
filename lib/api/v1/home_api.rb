@@ -124,7 +124,12 @@ module API
               # puts "#{k}:#{v}"
               if v.present? && obj.has_attribute?(k)
                 # puts k
-                obj.send "#{k}=", v
+                if k == 'tags'
+                  obj.tags = v.split(',')
+                else
+                  obj.send "#{k}=", v
+                end
+                
               end
             end
           end
