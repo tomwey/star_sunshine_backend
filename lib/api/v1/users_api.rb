@@ -260,6 +260,21 @@ module API
           
         end # end vip active
         
+        desc "获取我的艺人资料"
+        params do
+          requires :token, type: String, desc: '用户TOKEN'
+        end
+        get :performer do
+          user = authenticate!
+          
+          performer = Performer.where(user_id: user.id).first
+          if performer.blank?
+            return render_error(4004, '艺人还未入驻')
+          end
+          
+          render_json(performer, API::V1::Entities::Performer)
+        end # end get 艺人资料
+        
         desc "获取我正在关注的对象"
         params do
           requires :token, type: String, desc: '用户TOKEN'

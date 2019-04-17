@@ -101,6 +101,55 @@ module API
           render_json(@tags, API::V1::Entities::Tag2)
         end # end get types
         
+        desc "艺人入驻"
+        params do
+          requires :token, type: String, desc: '用户TOKEN'
+          requires :payload, type: JSON, desc: "其他非图片JSON数据"
+          optional :avatar, type: Rack::Multipart::UploadedFile, desc: '图片二进制'
+          optional :files,   type: Array do
+            requires :file, type: Rack::Multipart::UploadedFile, desc: '附件二进制'
+          end
+        end
+        post :create do
+          user = authenticate!
+          
+          if Performer.where(user_id: user.id).count > 0
+            return render_error(3000, '您已经入驻了')
+          end
+          
+          obj = Performer.new(user_id: user.id)
+          
+          if params[:payload]
+            params[:payload].each do |k,v|
+              # puts "#{k}:#{v}"
+              if v.present? && obj.has_attribute?(k)
+                # puts k
+                obj.send "#{k}=", v
+              end
+            end
+          end
+          
+          # 保存头像
+          if params[:avatar].present?
+            obj.avatar = params[:avatar]
+          end
+          
+          # 保存照片
+          if params[:files] && params[:files].any?
+            files = []
+            params[:files].each do |param|
+              files << param[:file]
+            end
+            obj.photos = files
+          end
+          
+          if obj.save!
+            render_json(obj, API::V1::Entities::Performer)
+          else
+            render_error(3001, "提交失败!")
+          end
+        end # end create
+        
         desc "获取艺人库"
         params do
           optional :token,  type: String, desc: '用户TOKEN'
