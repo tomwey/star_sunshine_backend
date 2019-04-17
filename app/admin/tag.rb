@@ -16,7 +16,7 @@ form do |f|
   f.semantic_errors
   f.inputs do
     f.input :name
-    f.input :sort, label: '显示顺序'
+    f.input :sort, label: '排序', hint: '值越小，显示越靠前'
   end
   actions
 end
