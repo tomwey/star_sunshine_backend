@@ -95,6 +95,12 @@ module API
       end # end resource
       
       resource :performs, desc: '艺人相关接口' do
+        desc "获取艺人分类"
+        get :types do
+          @tags = Tag.order('sort asc')
+          render_json(@tags, API::V1::Entities::Tag)
+        end # end get types
+        
         desc "获取艺人库"
         params do
           optional :token,  type: String, desc: '用户TOKEN'

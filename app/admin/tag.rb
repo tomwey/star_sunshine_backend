@@ -2,7 +2,7 @@ ActiveAdmin.register Tag do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name
+permit_params :name, :sort
 #
 # or
 #
@@ -11,5 +11,14 @@ permit_params :name
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+
+form do |f|
+  f.semantic_errors
+  f.inputs do
+    f.input :name
+    f.input :sort, label: '显示顺序'
+  end
+  actions
+end
 
 end

@@ -267,6 +267,10 @@ module API
         expose :money, format_with: :rmb_format
         expose :created_at, as: :time, format_with: :month_date_time
       end
+      
+      class Tag < Base
+        expose :name
+      end
             
       class Performer < Base
         expose :uniq_id, as: :id
