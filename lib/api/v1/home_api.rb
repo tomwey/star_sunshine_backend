@@ -98,7 +98,7 @@ module API
         desc "获取艺人分类"
         get :types do
           @tags = Tag.order('sort asc')
-          render_json(@tags, API::V1::Entities::Tag)
+          render_json(@tags, API::V1::Entities::Tag2)
         end # end get types
         
         desc "获取艺人库"

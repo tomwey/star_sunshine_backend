@@ -268,10 +268,10 @@ module API
         expose :created_at, as: :time, format_with: :month_date_time
       end
       
-      class Tag < Base
+      class Tag2 < Base
         expose :name
       end
-            
+      
       class Performer < Base
         expose :uniq_id, as: :id
         expose :name do |model,opts|
