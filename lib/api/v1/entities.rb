@@ -306,6 +306,11 @@ module API
             false
           end
         end
+        expose :created_at, as: :time, format_with: :chinese_datetime
+        expose :approved_at, as: :approve_time, format_with: :chinese_datetime
+        expose :approve_state do |model,opts|
+          model.approved_at.blank? ? '待审核' : '已审核'
+        end
       end
       
       class TagName < Base
