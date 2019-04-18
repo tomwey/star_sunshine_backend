@@ -3,8 +3,7 @@ ActiveAdmin.register Performer do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :name, :avatar, :mobile, :_type, :school, :bio, :height, :weight, :phone, :nickname,
-:sex,:age,:nation,:edu_level,:speciality,:marry_type,:now_job,:interest,:source,:body_size,:chest_size,:address, :sort,
-:waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
+:sex,:age,:nation,:edu_level,:speciality,:marry_type,:now_job,:interest,:source,:body_size,:chest_size,:address, :sort, :promo_score, :waist_size,:hip_size,:vision,:hair_style,:hair_color,:footcode,:skills,:trainings, { photos: [] }, { tags: [] }
 #
 # or
 #
@@ -24,7 +23,16 @@ index do
   column :name
   # column :mobile
   column 'at', :created_at
-  actions
+  # actions
+  
+  actions defaults: false do |o|
+    item "查看", [:admin, o]
+    item "编辑", edit_admin_performer_path(o)
+    item "删除", admin_performer_path(o), method: :delete, data: { confirm: '你确定吗？' }
+    item "审核通过", approve_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    item "转签约", sign_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+  end
+  
 end
 
 form html: { multipart: true } do |f|
@@ -58,6 +66,7 @@ form html: { multipart: true } do |f|
     f.input :hair_style, as: :radio, collection: ['长发','短发']
     f.input :hair_color, as: :string
     f.input :footcode, as: :number
+    f.input :promo_score, as: :number, label: '艺人推广分值', placeholder: '输入推广分值', hint: '只有大于0以上的艺人才会被推广，并且按分值进行降序排列，值越大越靠前。'
     # f.input :school, placeholder: '输入学校专业等'
     f.input :skills, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
     f.input :trainings, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
@@ -71,6 +80,31 @@ form html: { multipart: true } do |f|
   #   f.input :weight, placeholder: '体重,单位为KG'
   # end
   actions
+
+end
+
+# 审核通过
+batch_action :approve do |ids|
+  batch_action_collection.find(ids).each do |e|
+    e.approve!
+  end
+  redirect_to collection_path, alert: "已审核"
+end
+member_action :approve, method: :put do
+  resource.approve!
+  redirect_to collection_path, notice: '已审核'
+end
+
+# 转签约
+batch_action :sign do |ids|
+  batch_action_collection.find(ids).each do |e|
+    e.sign!
+  end
+  redirect_to collection_path, alert: "已签约"
+end
+member_action :sign, method: :put do
+  resource.sign!
+  redirect_to collection_path, notice: '已签约'
 end
 
 end

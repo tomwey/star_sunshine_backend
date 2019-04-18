@@ -50,4 +50,14 @@ class Performer < ActiveRecord::Base
     end
   end
   
+  def approve!
+    self.approved_at = Time.zone.now
+    self.save!
+  end
+  
+  def sign!
+    self.signed_at = Time.zone.now
+    self.save!
+  end
+  
 end
