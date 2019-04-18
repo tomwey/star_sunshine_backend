@@ -163,12 +163,21 @@ module API
           use :pagination
         end
         get do
-          @performers = Performer.where(verified: true).order('sort desc, id desc')
+          @performers = Performer.where(verified: true).where.not(approved_at: nil)
           if params[:type].present?
             unless [1,2,3].include?(params[:type])
               return render_error(-1, "不正确的type参数")
             end
-            @performers = @performers.where(_type: params[:type])
+            if params[:type] == 2 # 签约艺人
+              @performers = @performers.where.not(signed_at: nil).order('sort desc, id desc')
+            elsif params[:type] == 3 # 推广艺人
+              @performers = @performers.where('promo_score > 0').order('promo_score desc, sort desc, id desc')
+            else # 自由艺人
+              @performers = @performers.order('sort desc, id desc')
+            end
+            
+          else
+            @performers = @performers.order('sort desc, id desc')
           end
           
           if params[:tag_id].present?

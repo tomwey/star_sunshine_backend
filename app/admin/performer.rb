@@ -29,8 +29,17 @@ index do
     item "查看", [:admin, o]
     item "编辑", edit_admin_performer_path(o)
     item "删除", admin_performer_path(o), method: :delete, data: { confirm: '你确定吗？' }
-    item "审核通过", approve_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
-    item "转签约", sign_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    if o.approved_at.blank?
+      item "审核通过", approve_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    else
+      item "取消审核", no_approve_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    end
+    
+    if o.signed_at.blank?
+      item "转签约", sign_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    else
+      item "取消签约", no_sign_admin_performer_path(o), method: :put, data: { confirm: '你确定吗？' }
+    end
   end
   
 end
@@ -95,6 +104,18 @@ member_action :approve, method: :put do
   redirect_to collection_path, notice: '已审核'
 end
 
+# 取消审核
+batch_action :no_approve do |ids|
+  batch_action_collection.find(ids).each do |e|
+    e.no_approve!
+  end
+  redirect_to collection_path, alert: "已取消审核"
+end
+member_action :no_approve, method: :put do
+  resource.no_approve!
+  redirect_to collection_path, notice: '已取消审核'
+end
+
 # 转签约
 batch_action :sign do |ids|
   batch_action_collection.find(ids).each do |e|
@@ -105,6 +126,18 @@ end
 member_action :sign, method: :put do
   resource.sign!
   redirect_to collection_path, notice: '已签约'
+end
+
+# 取消签约
+batch_action :no_sign do |ids|
+  batch_action_collection.find(ids).each do |e|
+    e.no_sign!
+  end
+  redirect_to collection_path, alert: "已取消签约"
+end
+member_action :no_sign, method: :put do
+  resource.no_sign!
+  redirect_to collection_path, notice: '已取消签约'
 end
 
 end

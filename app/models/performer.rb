@@ -60,4 +60,14 @@ class Performer < ActiveRecord::Base
     self.save!
   end
   
+  def no_approve!
+    self.approved_at = nil
+    self.save!
+  end
+  
+  def no_sign!
+    self.signed_at = nil
+    self.save!
+  end
+  
 end

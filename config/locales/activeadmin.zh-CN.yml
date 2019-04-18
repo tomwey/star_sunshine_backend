@@ -13,5 +13,8 @@
         open: '打开'
         close: '关闭'
         approve: '审核'
+        no_approve: '取消审核'
+        sign: '签约'
+        no_sign: '取消签约'
         cancel_approve: '取消审核'
         reject: '拒绝'
