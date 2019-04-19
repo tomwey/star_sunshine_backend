@@ -50,7 +50,7 @@ end
 form html: { multipart: true } do |f|
   f.semantic_errors
   f.inputs '基本信息' do
-    f.input :user_id, as: :select, label: '绑定用户登录信息', collection: Performer.all_users_for(f.object)
+    f.input :user_id, as: :select, label: '绑定微信', collection: Performer.all_users_for(f.object)
     f.input :name, placeholder: '输入真实名字'
     f.input :avatar
     f.input :photos, as: :file, hint: "图片尺寸为1080x668", input_html: { multiple: true }

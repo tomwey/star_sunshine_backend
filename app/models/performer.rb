@@ -36,6 +36,22 @@ class Performer < ActiveRecord::Base
     self.uniq_id
   end
   
+  def format_avatar_url
+    if self.avatar.blank?
+      if self.user
+        if self.user.auth_profile
+          self.user.auth_profile.headimgurl
+        else
+          ''
+        end
+      else
+        ''
+      end
+    else
+      self.avatar.url(:large)
+    end
+  end
+  
   def comm_name
     self.name
   end
