@@ -84,6 +84,14 @@ module API
             return render_error(4000, '通告未上线，不能报名')
           end
           
+          if Performer.where(user_id: user.id).count == 0
+            return render_error(4000, '您的艺人资料还未上传，不能报名')
+          end
+          
+          if Performer.where('user_id = ? and approved_at is not null', user.id).count == 0
+            return render_error(4000, '您的艺人身份还未审核通过，不能报名')
+          end
+          
           if Appointment.where(user_id: user.id, job_id: @job.id).count > 0
             return render_error(4000, '该通告您已经报名过了')
           end
