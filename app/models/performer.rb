@@ -27,9 +27,11 @@ class Performer < ActiveRecord::Base
   def self.all_users_for(performer)
     user_ids = Performer.where.not(user_id: nil).pluck(:user_id)
     if performer && performer.user_id
-      user_ids = [performer.user_id] + user_ids
+      if user_ids.include? performer.user_id
+        user_ids.delete(performer.user_id)
+      end
     end
-    User.where(id: user_ids).map { |u| ["#{u.auth_profile.try(:nickname)}|#{u.uid}", u.id] }
+    User.where.not(id: user_ids).map { |u| ["#{u.auth_profile.try(:nickname)}|#{u.uid}", u.id] }
   end
   
   def comm_id
