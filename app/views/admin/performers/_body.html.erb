@@ -52,23 +52,23 @@
       <td class="label">三围</td>
       <td class="value"><%= performer.chest_size || '未知' %>,<%= performer.waist_size || '未知' %>,<%= performer.hip_size || '未知' %></td>
       <td class="label">视力</td>
-      <td class="value"><%= performer.vision %>kg</td>
+      <td class="value"><%= performer.vision %></td>
       <td class="label">发型</td>
       <td class="value"><%= performer.hair_style %></td>
     </tr>
     <tr>
       <td class="label">头发颜色</td>
-      <td class="value"><%= performer.hair_color %>cm</td>
+      <td class="value"><%= performer.hair_color %></td>
       <td class="label">鞋码</td>
-      <td class="value"><%= performer.footcode %>kg</td>
+      <td class="value"><%= performer.footcode %></td>
       <td class="label">常住地</td>
       <td class="value"><%= performer.address %></td>
     </tr>
     <tr>
       <td class="label">审核通过时间</td>
-      <td class="value"><%= performer.approved_at.blank? ? '' : l(performer.approved_at) %></td>
+      <td class="value"><%= performer.approved_at.blank? ? '' : performer.approved_at.strftime('Y%-%m-%d %H:%M:%S') %></td>
       <td class="label">签约时间</td>
-      <td class="value"><%= performer.signed_at.blank? ? '' : l(performer.signed_at) %></td>
+      <td class="value"><%= performer.signed_at.blank? ? '' : performer.signed_at.strftime('Y%-%m-%d %H:%M:%S') %></td>
       <td class="label">艺人推广分值</td>
       <td class="value"><%= performer.promo_score <= 0 ? '未推广' : performer.promo_score %></td>
     </tr>
