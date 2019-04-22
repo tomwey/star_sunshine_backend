@@ -6,7 +6,7 @@
       <td class="label">ID</td>
       <td class="value"><%= performer.uniq_id %></td>
       <td class="label">头像</td>
-      <td class="value"><%= performer.logo ? image_tag(performer.logo.url(:large)) : '' %></td>
+      <td class="value"><%= performer.avatar ? image_tag(performer.avatar.url(:large)) : '' %></td>
     </tr>
     <tr>
       <td class="label">艺名</td>
