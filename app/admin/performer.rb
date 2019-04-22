@@ -47,6 +47,10 @@ index do
   
 end
 
+show do
+  render 'body', { performer: performer }
+end
+
 form html: { multipart: true } do |f|
   f.semantic_errors
   f.inputs '基本信息' do

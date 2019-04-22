@@ -1,0 +1,114 @@
+<div class="base-info">
+  <table class="table">
+    <tr>
+      <td class="label">名字</td>
+      <td class="value"><%= performer.name %></td>
+      <td class="label">ID</td>
+      <td class="value"><%= performer.uniq_id %></td>
+      <td class="label">头像</td>
+      <td class="value"><%= performer.logo ? image_tag(performer.logo.url(:large)) : '' %></td>
+    </tr>
+    <tr>
+      <td class="label">艺名</td>
+      <td class="value"><%= performer.nickname %></td>
+      <td class="label">联系方式</td>
+      <td class="value"><%= performer.phone %></td>
+      <td class="label">所属分类</td>
+      <td class="value"><%= Tag.where(id: performer.tags).pluck(:name).join(',') %></td>
+    </tr>
+    <tr>
+      <td class="label">性别</td>
+      <td class="value"><%= performer.sex %></td>
+      <td class="label">年龄</td>
+      <td class="value"><%= performer.age %></td>
+      <td class="label">籍贯</td>
+      <td class="value"><%= performer.nation %></td>
+    </tr>
+    <tr>
+      <td class="label">学历</td>
+      <td class="value"><%= performer.edu_level %></td>
+      <td class="label">专业</td>
+      <td class="value"><%= performer.speciality %></td>
+      <td class="label">婚姻状况</td>
+      <td class="value"><%= I18n.t("common.performer.m_type_#{performer.marry_type}" %></td>
+    </tr>
+    <tr>
+      <td class="label">现职业</td>
+      <td class="value"><%= performer.now_job %></td>
+      <td class="label">爱好</td>
+      <td class="value"><%= performer.interest %></td>
+      <td class="label">信息来源</td>
+      <td class="value"><%= performer.source %></td>
+    </tr>
+    <tr>
+      <td class="label">身高</td>
+      <td class="value"><%= performer.height %>cm</td>
+      <td class="label">体重</td>
+      <td class="value"><%= performer.weight %>kg</td>
+      <td class="label">体型</td>
+      <td class="value"><%= performer.body_size %></td>
+    </tr>
+    <tr>
+      <td class="label">三围</td>
+      <td class="value"><%= performer.chest_size || '未知' %>,<%= performer.waist_size || '未知' %>,<%= performer.hip_size || '未知' %></td>
+      <td class="label">视力</td>
+      <td class="value"><%= performer.vision %>kg</td>
+      <td class="label">发型</td>
+      <td class="value"><%= performer.hair_style %></td>
+    </tr>
+    <tr>
+      <td class="label">头发颜色</td>
+      <td class="value"><%= performer.hair_color %>cm</td>
+      <td class="label">鞋码</td>
+      <td class="value"><%= performer.footcode %>kg</td>
+      <td class="label">常住地</td>
+      <td class="value"><%= performer.address %></td>
+    </tr>
+    <tr>
+      <td class="label">审核通过时间</td>
+      <td class="value"><%= l performer.approved_at %></td>
+      <td class="label">签约时间</td>
+      <td class="value"><%= l performer.signed_at %></td>
+      <td class="label">艺人推广分值</td>
+      <td class="value"><%= performer.promo_score <= 0 ? '未推广' : performer.promo_score %></td>
+    </tr>
+  </table>
+</div>
+
+<% if performer.photos.any? %>
+<div class="panel photos">
+  <h3>艺人照片</h3>
+  <div class="panel_contents">
+    <% performer.photos.each do |photo| %>
+    <%= image_tag photo.url(:large), class: 'photo' %>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+<% if performer.skills %>
+<div class="panel skills">
+  <h3>个人才艺</h3>
+  <div class="panel_contents">
+    <%= simple_format performer.skills %>
+  </div>
+</div>
+<% end %>
+
+<% if performer.trainings %>
+<div class="panel trainings">
+  <h3>培训经历</h3>
+  <div class="panel_contents">
+    <%= simple_format performer.trainings %>
+  </div>
+</div>
+<% end %>
+
+<% if performer.bio %>
+<div class="panel bio">
+  <h3>工作/演出经历</h3>
+  <div class="panel_contents">
+    <%= simple_format performer.bio %>
+  </div>
+</div>
+<% end %>
