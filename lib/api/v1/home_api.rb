@@ -204,7 +204,6 @@ module API
       
       resource :utils, desc: "工具相关接口" do
         desc "获取七牛上传TOKEN"
-        params do
         get :uptoken do
           bucket = "#{SiteConfig.qiniu_bucket}"
           
