@@ -202,6 +202,25 @@ module API
         end # get /
       end # end resource
       
+      resource :utils, desc: "工具相关接口" do
+        desc "获取七牛上传TOKEN"
+        params do
+        get :uptoken do
+          bucket = "#{SiteConfig.qiniu_bucket}"
+          
+          #构建上传策略
+          put_policy = Qiniu::Auth::PutPolicy.new(
+              bucket,      # 存储空间
+              nil,     # 指定上传的资源名，如果传入 nil，就表示不指定资源名，将使用默认的资源名
+              72000000    #token过期时间，默认为3600s
+          )
+
+          #生成上传 Token
+          uptoken = Qiniu::Auth.generate_uptoken(put_policy)
+          { code: 0, message: 'ok', data: { token: uptoken } }
+        end # end get uptoken 
+      end # end resource utils
+      
     end # end class
   end
 end
